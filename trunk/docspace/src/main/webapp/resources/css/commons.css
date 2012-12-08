@@ -1,0 +1,69 @@
+body#commonBody{
+	font-family: arial, sans-serif;
+	font-size: 75%;
+	margin: 0;
+	padding: 0;
+}
+
+body#loginBody{
+	margin:50px 0px; padding:0px;
+	font-size: 75%;
+	font-family: arial, sans-serif;
+	text-align: center;
+}
+
+#loginDiv{
+	margin:0px auto;
+	text-align:left;
+ 	border:1px solid #aaa; 
+ 	background-color: #eee;
+	width: 560px;
+	height: 320px;
+}
+
+#LoginLogoDiv{
+	width: 180px;
+	height: 60px;
+ 	background: url('../img/n2n_logo.jpg') no-repeat;
+ 	margin-bottom: 10px;
+}
+
+#loginIDiv{
+	margin: 100px auto 0;
+	width: 280px;
+/* 	border:1px solid #333; */
+/* 	background-color:#eee; */
+}
+
+#loginI2Div{
+	padding: 30px;
+}
+
+#context{
+	width: 1000px;
+	margin: 0 auto;
+	background-color: silver;
+	border-left: 2px solid silver;
+	border-right: 2px solid silver;
+}
+
+#header{
+	width: auto;
+	height: 80px;
+	background-color: red;
+}
+
+#main{
+	width: auto;
+	padding: 5px 10px;
+	background-color: white;
+	min-height: 500px;
+}
+
+#footer{
+	background-color: silver;
+	color: gray;
+	font-style: italic;
+	text-align: right;
+	padding: 5px 10px;
+}
