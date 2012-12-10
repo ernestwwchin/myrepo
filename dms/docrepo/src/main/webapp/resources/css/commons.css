@@ -53,17 +53,46 @@ body#loginBody{
 	background-color: red;
 }
 
+#sidebar{
+	float: left;
+	width: 200px;
+	background-color: yellow;
+}
+
 #main{
-	width: auto;
+	float: right;
+	width: 760px;
 	padding: 5px 10px;
 	background-color: white;
 	min-height: 500px;
 }
 
 #footer{
+	clear:both;
 	background-color: silver;
 	color: gray;
 	font-style: italic;
 	text-align: right;
 	padding: 5px 10px;
 }
+
+
+
+table.datatable{
+	border-collapse: collapse;
+}
+
+table.datatable th, table.datatable td{
+	padding: 5px 10px;
+}
+
+table.datatable th{
+	background-color: silver;
+}
+table.datatable td{
+	border: 1px solid silver;
+}
+
+
+
+

@@ -1,49 +1,76 @@
 package org.tmx.docspace.web;
 
+import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.tmx.docspace.domain.DocUser;
 import org.tmx.docspace.repository.DocUserRepository;
 
 @Controller
 @RequestMapping("/um/")
 public class UserManagementController {
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private DocUserRepository userRepo;
 	
 	
 	@RequestMapping("/docusers")
-	public ModelAndView listDocUsers(){
-		ModelAndView mov = new ModelAndView();
-		
+	public String listDocUsers(Model model){
 		List<DocUser> users = userRepo.findAll();
-		mov.addObject("docUsers", users);
-		mov.addObject("docuser", new DocUser());
-		mov.setViewName("um/docusers/list");
-		return mov;
+		model.addAttribute("docUsers", users);
+		return "um/docusers/list";
 	}
 	
 	@RequestMapping("/docusers/add")
-	public String addDocUser(@ModelAttribute("docUser") DocUser docUser){
+	public String addDocUser(Model model){
+		model.addAttribute("docUser", new DocUser());
+		return "um/docusers/add";
+	}
+	
+	@RequestMapping("/docusers/create")
+	public String createDocUser(@ModelAttribute("docUser") DocUser docUser){
+		Date today = new Date();
+		docUser.setCreated(today);
+		docUser.setModified(today);
 		userRepo.saveAndFlush(docUser);
 		return "redirect:/um/docusers";
 	}
 	
 	@RequestMapping("/docusers/edit")
-	public String editDocUser(@ModelAttribute DocUser docUser){
-		userRepo.save(docUser);
-		return "um/docusers/view";
+	public String editDocUser(Model model, @RequestParam("docUserId") Integer id){
+		DocUser user = userRepo.findOne(id);
+		model.addAttribute("docUser", user);
+		return "um/docusers/edit";
+	}
+	
+	@RequestMapping("/docusers/update")
+	public String updateDocUser(@ModelAttribute DocUser userDto){
+		DocUser user = userRepo.findOne(userDto.getId());
+		Date today = new Date();
+		
+		logger.debug("{}", user);
+		
+		// copy wanted attribute...
+		user.setName(userDto.getName());
+		user.setModified(today);
+		
+		userRepo.save(user);
+		
+		return "redirect:/um/docusers";
 	}
 	
 	@RequestMapping("/docusers/delete")
-	public String deleteDocUser(Integer docUserId){
+	public String deleteDocUser(@RequestParam("docUserId") Integer docUserId){
 		userRepo.delete(docUserId);
-		return "um/docusers/list";
+		return "redirect:/um/docusers";
 	}
 }

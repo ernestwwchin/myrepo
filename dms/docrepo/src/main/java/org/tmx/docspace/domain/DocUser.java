@@ -12,6 +12,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 @Entity
 @Table(name="ds_docuser")
 public class DocUser implements Serializable{
@@ -67,5 +70,12 @@ public class DocUser implements Serializable{
 
 	public void setModified(Date modified) {
 		this.modified = modified;
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(
+				this, 
+				ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }
