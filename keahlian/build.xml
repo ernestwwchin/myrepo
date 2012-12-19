@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="keahlian">
+	
+	<target name="package" description="Maven clean package">
+		<exec executable="mvn.bat">
+			<arg value="-f"/>
+			<arg value="pom.xml"/>
+			<arg value="clean" />
+			<arg value="package" />
+		</exec>
+	</target>
+
+</project>

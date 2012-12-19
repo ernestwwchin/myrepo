@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tmx.docspace.domain.DocUser;
 import org.tmx.docspace.repository.DocUserRepository;
+import org.tmx.docspace.service.UserManagementService;
 
 @Controller
 @RequestMapping("/um/")
@@ -22,6 +23,8 @@ public class UserManagementController {
 	@Autowired
 	private DocUserRepository userRepo;
 	
+	@Autowired
+	private UserManagementService userService;
 	
 	@RequestMapping("/docusers")
 	public String listDocUsers(Model model){
