@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.1.xsd">
+
+<!-- 	<bean id="sessionFactory" -->
+<!-- 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="transactionManager" -->
+<!-- 		class="org.springframework.orm.hibernate4.HibernateTransactionManager"> -->
+<!-- 		<property name="sessionFactory" ref="sessionFactory" /> -->
+<!-- 	</bean> -->
+
+
+	<jdbc:embedded-database id="dataSource" type="H2">
+<!-- 		<jdbc:script location="classpath:jpa/config/schema.sql" /> -->
+	</jdbc:embedded-database>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+<!-- 		<property name="persistenceUnitName" value="" /> -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.globalsoft.docrepo.domain</value>
+			</list>
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="database" value="H2" />
+				<property name="showSql" value="true"/>
+				<property name="generateDdl" value="true"/>
+			</bean>
+		</property>
+<!-- 		<property name="jpaProperties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<jpa:repositories base-package="com.globalsoft.docrepo.repository" />
+</beans>
